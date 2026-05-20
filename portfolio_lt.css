@@ -192,32 +192,54 @@ section {
     color: var(--secondary-color);
 }
 
-/* Multi-tab View (Optimized for Mobile Swiping) */
+/* Multi-tab View Container */
 .tabs-container {
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.tabs {
-    display: flex;
-    justify-content: flex-start; /* Aligns items to start for clean horizontal scrolling */
-    list-style: none;
+/* Wrapper to isolate the drag layout on mobile */
+.tabs-wrapper {
+    position: relative;
     margin-bottom: 40px;
-    border-bottom: 1px solid #ddd;
-    overflow-x: auto; /* Enables horizontal scroll/swipe on mobile */
-    overflow-y: hidden;
-    white-space: nowrap; /* Keeps tabs on a single line */
-    -webkit-overflow-scrolling: touch; /* Smooth swiping mechanics on iOS devices */
-    scroll-snap-type: x mandatory;
+    background-color: var(--white);
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 5px;
 }
 
-/* Hides default browser scrollbars for a clean tab strip UI */
-.tabs::-webkit-scrollbar {
-    display: none;
-}
+/* Scrollable Tab Bar configuration */
 .tabs {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    display: flex;
+    justify-content: flex-start;
+    list-style: none;
+    overflow-x: auto; /* Enables horizontal drag/swipe */
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch; /* Fast/smooth native swipe mechanics on iOS */
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px; /* Adds space for the drag bar */
+    border-bottom: 2px solid #eeeeee;
+}
+
+/* Visible styled horizontal drag bar for small screens */
+.tabs::-webkit-scrollbar {
+    height: 5px; /* Height of the horizontal drag bar */
+    display: block;
+}
+
+.tabs::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.tabs::-webkit-scrollbar-thumb {
+    background: var(--secondary-color); /* Matches the elegant gold brand accent */
+    border-radius: 10px;
+}
+
+.tabs::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
 
 .tab-btn {
@@ -230,19 +252,32 @@ section {
     border: none;
     color: var(--gray);
     transition: all 0.3s;
-    flex-shrink: 0; /* Prevents text from being crushed or squished on small phone screens */
+    flex-shrink: 0; /* Prevents text from shrinking or collapsing */
     scroll-snap-align: start;
 }
 
-.tab-btn.active, .tab-btn:hover {
+.tab-btn.active {
     color: var(--secondary-color);
     border-bottom: 3px solid var(--secondary-color);
 }
 
-/* Desktop layout adjustment to center tabs when there is plenty of room */
+.tab-btn:hover {
+    color: var(--secondary-color);
+}
+
+/* Desktop alignment to center tabs cleanly when viewport is wide enough */
 @media (min-width: 969px) {
     .tabs {
         justify-content: center;
+        padding-bottom: 0;
+    }
+    .tabs::-webkit-scrollbar {
+        display: none; /* No drag bar needed on standard desktop screen widths */
+    }
+    .tabs-wrapper {
+        background: none;
+        box-shadow: none;
+        padding: 0;
     }
 }
 
