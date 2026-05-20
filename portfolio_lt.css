@@ -136,7 +136,7 @@ section {
     background-color: var(--secondary-color);
 }
 
-/* About & Education */
+/* Layouts */
 .about-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -145,14 +145,13 @@ section {
     margin: 0 auto;
 }
 
-.about-text h3 {
+.about-text h3, .section-subtitle {
     font-size: 1.8rem;
     margin-bottom: 20px;
-    color: var(--primary-color);
-}
-
-.interests-tags {
     margin-top: 20px;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--secondary-color);
+    padding-bottom: 5px;
 }
 
 .tag {
@@ -165,7 +164,7 @@ section {
     border: 1px solid #ddd;
 }
 
-/* Timeline / Education Styling */
+/* Timeline */
 .timeline {
     border-left: 2px solid var(--secondary-color);
     padding-left: 20px;
@@ -193,7 +192,7 @@ section {
     color: var(--secondary-color);
 }
 
-/* Experience & Achievements Tabs */
+/* Multi-tab View (Optimized for Mobile Swiping) */
 .tabs-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -201,14 +200,28 @@ section {
 
 .tabs {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* Aligns items to start for clean horizontal scrolling */
     list-style: none;
     margin-bottom: 40px;
     border-bottom: 1px solid #ddd;
+    overflow-x: auto; /* Enables horizontal scroll/swipe on mobile */
+    overflow-y: hidden;
+    white-space: nowrap; /* Keeps tabs on a single line */
+    -webkit-overflow-scrolling: touch; /* Smooth swiping mechanics on iOS devices */
+    scroll-snap-type: x mandatory;
+}
+
+/* Hides default browser scrollbars for a clean tab strip UI */
+.tabs::-webkit-scrollbar {
+    display: none;
+}
+.tabs {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .tab-btn {
-    padding: 15px 30px;
+    padding: 15px 25px;
     cursor: pointer;
     font-weight: bold;
     text-transform: uppercase;
@@ -217,11 +230,20 @@ section {
     border: none;
     color: var(--gray);
     transition: all 0.3s;
+    flex-shrink: 0; /* Prevents text from being crushed or squished on small phone screens */
+    scroll-snap-align: start;
 }
 
 .tab-btn.active, .tab-btn:hover {
     color: var(--secondary-color);
     border-bottom: 3px solid var(--secondary-color);
+}
+
+/* Desktop layout adjustment to center tabs when there is plenty of room */
+@media (min-width: 969px) {
+    .tabs {
+        justify-content: center;
+    }
 }
 
 .tab-content {
@@ -239,10 +261,11 @@ section {
 }
 
 .card {
-    background-color: var(--light-bg);
+    background-color: var(--white);
     padding: 25px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-left: 3px solid var(--secondary-color);
 }
 
 .card h4 {
@@ -257,7 +280,22 @@ section {
     font-weight: 500;
 }
 
-/* Contact Section */
+.card ul {
+    list-style-type: square;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+.alert-card {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Contact */
 .contact {
     background-color: var(--primary-color);
     color: var(--white);
@@ -271,15 +309,15 @@ section {
 .contact-info {
     display: flex;
     justify-content: center;
-    gap: 50px;
+    gap: 30px;
     flex-wrap: wrap;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 .contact-item {
     flex: 1;
-    min-width: 200px;
+    min-width: 220px;
     background: rgba(255,255,255,0.05);
     padding: 20px;
     border-radius: 5px;
@@ -291,10 +329,6 @@ section {
     text-transform: uppercase;
 }
 
-.contact-item p {
-    font-size: 16px;
-}
-
 footer {
     background-color: #111;
     color: var(--gray);
@@ -304,11 +338,11 @@ footer {
     border-top: 1px solid #222;
 }
 
-/* Responsive Design */
+/* Responsive Setting */
 @media (max-width: 968px) {
     section { padding: 60px 20px; }
     .about-container, .grid-list { grid-template-columns: 1fr; }
     .hero-content h1 { font-size: 2.5rem; }
-    nav { padding: 20px; }
+    nav { padding: 20px; position: static; }
     nav ul { display: none; }
 }
