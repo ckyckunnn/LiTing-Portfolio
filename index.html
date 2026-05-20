@@ -124,12 +124,14 @@
         <h2 class="section-title">Complete Archive</h2>
         
         <div class="tabs-container">
-            <div class="tabs">
-                <button class="tab-btn active" onclick="openTab(event, 'collabs-26-22')">Performances (2022-2026)</button>
-                <button class="tab-btn" onclick="openTab(event, 'collabs-21-09')">Performances (2009-2021)</button>
-                <button class="tab-btn" onclick="openTab(event, 'teaching-choir')">Teaching & Choir Experience</button>
-                <button class="tab-btn" onclick="openTab(event, 'classical-singing-awards')">Classical Accompanist Awards</button>
-                <button class="tab-btn" onclick="openTab(event, 'dance-pop')">Dance & Interdisciplinary Arts</button>
+            <div class="tabs-wrapper">
+                <div class="tabs" id="tabBar">
+                    <button class="tab-btn active" onclick="openTab(event, 'collabs-26-22')">Performances (2022-2026)</button>
+                    <button class="tab-btn" onclick="openTab(event, 'collabs-21-09')">Performances (2009-2021)</button>
+                    <button class="tab-btn" onclick="openTab(event, 'teaching-choir')">Teaching & Choir Experience</button>
+                    <button class="tab-btn" onclick="openTab(event, 'classical-singing-awards')">Classical Accompanist Awards</button>
+                    <button class="tab-btn" onclick="openTab(event, 'dance-pop')">Dance & Interdisciplinary Arts</button>
+                </div>
             </div>
 
             <div id="collabs-26-22" class="tab-content active">
@@ -182,7 +184,7 @@
                     <div class="card">
                         <div class="card-meta">April 2025 | Johor Bahru, Malaysia</div>
                         <h4>Euroasia Music Competition 2025 (Preliminary Round)</h4>
-                        <p>String Solo Category Grade 8. Accompanied: Allegro Brillante, Op. 19 by W. Ten Have (Violin) & Elégie op. 24 for viola and piano by Gabriel Fauré (Viola).</p>
+                        <p>String Solo Category Grade 8. Accompanied: Allegro Brillante, Op. 19 by W. Have (Violin) & Elégie op. 24 for viola and piano by Gabriel Fauré (Viola).</p>
                     </div>
                     <div class="card">
                         <div class="card-meta">December 2024 | Kuala Lumpur, Malaysia</div>
@@ -563,6 +565,15 @@
             document.getElementById(tabName).style.display = "block";
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
+
+            // Automatically center the selected tab item in the drag view on mobile screens
+            var tabBar = document.getElementById("tabBar");
+            var button = evt.currentTarget;
+            var offsetLeft = button.offsetLeft - (tabBar.clientWidth / 2) + (button.clientWidth / 2);
+            tabBar.scrollTo({
+                left: offsetLeft,
+                behavior: 'smooth'
+            });
         }
     </script>
 </body>
